@@ -1,0 +1,19 @@
+{
+  "tasks": [
+    {
+      "label": "Cmake build",
+      "type": "shell",
+      "command": "/usr/bin/make",
+      "args": ["--directory", "${workspaceFolder}/bin"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ],
+  "version": "2.0.0"
+}
