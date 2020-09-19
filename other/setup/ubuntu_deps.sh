@@ -16,8 +16,9 @@ then
         sudo apt-get -y install git
 fi
 
-git clone https://github.com/davidepatti/noxim
-cd noxim/bin
+# git clone https://github.com/davidepatti/noxim
+# cd noxim/bin
+cd bin
 mkdir -p libs
 cd libs
 

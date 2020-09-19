@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Cmake launch",
+      "name": "CMake launch",
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/bin/noxim",
@@ -27,7 +27,7 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "Cmake build",
+      "preLaunchTask": "CMake build",
       "miDebuggerPath": "/usr/bin/gdb"
     }
   ]
