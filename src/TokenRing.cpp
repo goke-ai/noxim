@@ -22,9 +22,15 @@ void TokenRing::updateTokenPacket(int channel)
 	    // number of hubs of the ring
 	    int num_hubs = rings_mapping[channel].size();
 
+        cout << "*** Channel " << channel << " number of Hubs " <<  num_hubs << endl;
+        cout << "*** Current hub " <<  token_holder << endl;
+
 	    token_position[channel] = (token_position[channel]+1)%num_hubs;
 
 	    int new_token_holder = rings_mapping[channel][token_position[channel]];
+
+        cout << "*** Next Current hub " <<  new_token_holder << endl;
+        
         LOG << "*** Token of channel " << channel << " has been assigned to Hub_" <<  new_token_holder << endl;
 	    current_token_holder[channel]->write(new_token_holder);
 	    // TEST HOLD BUG

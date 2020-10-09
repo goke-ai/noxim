@@ -344,6 +344,25 @@ unsigned int GlobalStats::getWirelessPackets()
     return packets;
 }
 
+unsigned int GlobalStats::getWirelessPacketsByHubId(int hub_id)
+{
+    unsigned int packets = 0;
+
+    // Wireless noc
+    // for (map<int, HubConfig>::iterator it = GlobalParams::hub_configuration.begin();
+    //         it != GlobalParams::hub_configuration.end();
+    //         ++it)
+    // {
+	// int hub_id = it->first;
+
+	map<int,Hub*>::const_iterator i = noc->hub.find(hub_id);
+	Hub * h = i->second;
+
+	packets+= h->wireless_communications_counter;
+    // }
+    return packets;
+}
+
 double GlobalStats::getDynamicPower()
 {
     double power = 0.0;

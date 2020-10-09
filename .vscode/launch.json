@@ -11,9 +11,10 @@
       "program": "${workspaceFolder}/bin/noxim",
       "args": [
         "-config",
-        "${workspaceFolder}/config_examples/default_config.yaml",
+        "${workspaceFolder}/config_examples/my_wireless_default_config.yaml",
         "-power",
-        "${workspaceFolder}/bin/power.yaml"
+        "${workspaceFolder}/bin/power.yaml",
+        // "-detailed"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
