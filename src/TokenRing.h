@@ -18,6 +18,8 @@
 
 using namespace std;
 
+class Hub;
+
 SC_MODULE(TokenRing)
 {
     SC_HAS_PROCESS(TokenRing);
@@ -34,7 +36,10 @@ SC_MODULE(TokenRing)
     map<int, sc_signal<int> *> token_expiration_signals;
     map<int, map<int, sc_signal<int> *>> flag_signals;
 
-    void attachHub(int channel, int hub, sc_in<int> *hub_token_holder_port, sc_in<int> *hub_token_expiration_port, sc_inout<int> *hub_flag_port);
+    // +gk
+    // void attachHub(int channel, int hub, sc_in<int> *hub_token_holder_port, sc_in<int> *hub_token_expiration_port, sc_inout<int> *hub_flag_port);
+    void attachHub(int channel, int hub, sc_in<int> *hub_token_holder_port, sc_in<int> *hub_token_expiration_port, sc_inout<int> *hub_flag_port, Hub *pHub);
+    // -gk
 
     void updateTokens();
 
@@ -57,6 +62,8 @@ SC_MODULE(TokenRing)
 
     pair<string, vector<string>> getPolicy(int channel) { return token_policy[channel]; }
 
+    void printWirelessPackets(int channel);
+
 private:
     void updateTokenMaxHold(int channel);
     void updateTokenHold(int channel);
@@ -71,6 +78,8 @@ private:
     map<int, int> token_hold_count;
 
     map<int, pair<string, vector<string>>> token_policy;
+
+    map<int, vector<Hub *>> rings_mapping_hubs;
 };
 
 #endif

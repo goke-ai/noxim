@@ -15,6 +15,7 @@
         "-power",
         "${workspaceFolder}/bin/power.yaml",
         // "-detailed"
+        // "> ${workspaceFolder}/results/my_log.txt"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

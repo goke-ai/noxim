@@ -165,7 +165,10 @@ SC_MODULE(Hub)
             current_token_holder[ch] = new sc_in<int>();
             current_token_expiration[ch] = new sc_in<int>();
             flag[ch] = new sc_inout<int>();
-            token_ring->attachHub(ch, local_id, current_token_holder[ch], current_token_expiration[ch], flag[ch]);
+            // +gk
+            // token_ring->attachHub(ch, local_id, current_token_holder[ch], current_token_expiration[ch], flag[ch]);
+            token_ring->attachHub(ch, local_id, current_token_holder[ch], current_token_expiration[ch], flag[ch], this);
+            // -gk
             transmission_in_progress[ch] = false;
             // power manager currently assumes TOKEN_PACKET mac policy
             if (GlobalParams::use_powermanager)
