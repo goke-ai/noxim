@@ -27,19 +27,26 @@ void TokenRing::updateTokenPacket(int channel)
         Hub *h = rings_mapping_hubs[channel][token_pos];
         cout << "*GK* Current hub " << token_holder << " as Packet: " << h->wireless_communications_counter << endl;
         printWirelessPackets(channel);
-        
-        // +gk
-        token_position[channel] = (token_position[channel] + 1) % num_hubs;
-        // tuple<int, unsigned int> hMax = assignNextHub(channel);
-        // token_position[channel] = std::get<0>(hMax);
 
-        // if ((num_hubs - hubs_cycle.size()) == 1)
-        // {
-        //     hubs_cycle.clear();
-        // cout << "\t*GK* Clear cycle ====\n";
-            
-        // }
-        // hubs_cycle.insert(token_position[channel]);
+        // +gk
+        if (GlobalParams::token_topology == "C_MAC")       
+        {
+            tuple<int, unsigned int> hMax = assignNextHub(channel);
+            token_position[channel] = std::get<0>(hMax);
+
+            if ((num_hubs - hubs_cycle.size()) == 1)
+            {
+                hubs_cycle.clear();
+                cout << "\t*GK* Clear cycle ====\n";
+            }
+            hubs_cycle.
+            insert(token_position[channel]);
+        }
+        else
+        {
+            token_position[channel] = (token_position[channel] + 1) % num_hubs;
+        }
+        
         // -gk
 
         int new_token_holder = rings_mapping[channel][token_position[channel]];

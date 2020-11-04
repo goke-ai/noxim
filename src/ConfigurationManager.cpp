@@ -93,7 +93,7 @@ void loadConfiguration() {
     GlobalParams::winoc_dst_hops = readParam<int>(config, "winoc_dst_hops",0);
     GlobalParams::use_powermanager = readParam<bool>(config, "use_wirxsleep");
     // +gk
-    GlobalParams::token_topology = readParam<bool>(config, "token_topology");
+    GlobalParams::token_topology = readParam<string>(config, "token_topology");
     // -gk
     
 

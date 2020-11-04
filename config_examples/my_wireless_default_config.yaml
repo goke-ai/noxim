@@ -168,4 +168,4 @@ traffic_table_filename: "t.txt"
 # Token topology
 # NORMAL
 # C_MAC
-token_topology: NORMAL
+token_topology: C_MAC

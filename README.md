@@ -42,6 +42,9 @@ If you are working on Ubuntu, you can install noxim and all the dependencies wit
 
     bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/davidepatti/noxim/master/other/setup/ubuntu.sh)
 
+or update depedencies
+    bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/goke-ai/noxim/master/other/setup/ubuntu_noboost_deps.sh
+
 Or, to get just the latest master sources, you can run:
 
     git clone https://github.com/davidepatti/noxim.git
