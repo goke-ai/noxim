@@ -164,3 +164,8 @@ traffic_distribution: TRAFFIC_RANDOM
 # when traffic table based is specified, use the following
 # configuration file
 traffic_table_filename: "t.txt"
+
+# Token topology
+# NORMAL
+# C_MAC
+token_topology: NORMAL
