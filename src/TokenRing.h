@@ -15,6 +15,7 @@
 
 #include "Utils.h"
 #include <stdlib.h>
+#include <set>
 
 using namespace std;
 
@@ -63,6 +64,7 @@ SC_MODULE(TokenRing)
     pair<string, vector<string>> getPolicy(int channel) { return token_policy[channel]; }
 
     void printWirelessPackets(int channel);
+    tuple<int, unsigned int> assignNextHub(int channel);
 
 private:
     void updateTokenMaxHold(int channel);
@@ -80,6 +82,8 @@ private:
     map<int, pair<string, vector<string>>> token_policy;
 
     map<int, vector<Hub *>> rings_mapping_hubs;
+
+    std::set<int> hubs_cycle;
 };
 
 #endif

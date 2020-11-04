@@ -46,7 +46,7 @@ int GlobalParams::rnd_generator_seed;
 bool GlobalParams::detailed;
 double GlobalParams::dyad_threshold;
 unsigned int GlobalParams::max_volume_to_be_drained;
-vector <pair <int, double> > GlobalParams::hotspots;
+vector<pair<int, double>> GlobalParams::hotspots;
 bool GlobalParams::show_buffer_stats;
 bool GlobalParams::use_winoc;
 int GlobalParams::winoc_dst_hops;
@@ -60,3 +60,7 @@ PowerConfig GlobalParams::power_configuration;
 // out of yaml configuration
 bool GlobalParams::ascii_monitor;
 int GlobalParams::channel_selection;
+
+// +gk
+string GlobalParams::token_topology;
+// -gk

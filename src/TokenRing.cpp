@@ -24,15 +24,27 @@ void TokenRing::updateTokenPacket(int channel)
 
         cout << "*GK* Channel " << channel << " number of Hubs " << num_hubs << endl;
         //
-        Hub* h = rings_mapping_hubs[channel][token_pos];
+        Hub *h = rings_mapping_hubs[channel][token_pos];
         cout << "*GK* Current hub " << token_holder << " as Packet: " << h->wireless_communications_counter << endl;
         printWirelessPackets(channel);
-
+        
+        // +gk
         token_position[channel] = (token_position[channel] + 1) % num_hubs;
+        // tuple<int, unsigned int> hMax = assignNextHub(channel);
+        // token_position[channel] = std::get<0>(hMax);
+
+        // if ((num_hubs - hubs_cycle.size()) == 1)
+        // {
+        //     hubs_cycle.clear();
+        // cout << "\t*GK* Clear cycle ====\n";
+            
+        // }
+        // hubs_cycle.insert(token_position[channel]);
+        // -gk
 
         int new_token_holder = rings_mapping[channel][token_position[channel]];
 
-        Hub* h2 = rings_mapping_hubs[channel][token_position[channel]];
+        Hub *h2 = rings_mapping_hubs[channel][token_position[channel]];
         cout << "*GK* Next hub " << new_token_holder << " as Packet: " << h2->wireless_communications_counter << endl;
         cout << endl;
 
@@ -121,6 +133,11 @@ void TokenRing::attachHub(int channel, int hub, sc_in<int> *hub_token_holder_por
     if (!current_token_holder[channel])
     {
         token_position[channel] = 0;
+
+        // +gk
+        hubs_cycle.insert(token_position[channel]);
+        // -gk
+
         // TEST HOLDBUG
         //token_position[channel] = hub;
         current_token_holder[channel] = new sc_out<int>();
@@ -180,4 +197,60 @@ void TokenRing::printWirelessPackets(int channel)
         packets += packet;
     }
     cout << "*GK* Hubs => Packets: " << packets << endl;
+}
+
+tuple<int, unsigned int> TokenRing::assignNextHub(int channel)
+{
+    vector<tuple<int, unsigned int>> hub_packets;
+    unsigned int packets = 0;
+    int count = 0;
+    // get hub packet
+    for (auto &&h : rings_mapping_hubs[channel])
+    {
+        unsigned int packet = h->wireless_communications_counter;
+        // cout << "*GK* Hub_" << count << " => Packet: " << h->wireless_communications_counter << endl;
+        hub_packets.push_back(make_tuple(count, packet));
+        ++count;
+
+        packets += packet;
+    }
+    // cout << "*GK* Hubs => Packets: " << packets << endl;
+
+    vector<tuple<int, unsigned int>> w_hub_packets(hub_packets.size());
+    copy_if(hub_packets.begin(), hub_packets.end(), w_hub_packets.begin(), [&](const tuple<int, unsigned int> &hub_p) {
+        bool isNot = true;
+        for (auto &&i : hubs_cycle)
+        {
+
+            int k;
+            unsigned int p;
+            std::tie(k, p) = hub_p;
+            // auto [k, p ] = hub_p;
+            if (i == k)
+            {
+                isNot = false;
+                break;
+            }
+        }
+        return isNot;
+    });
+
+    // for (auto &&h : w_hub_packets)
+    // {
+    //     cout << "\t*GK* Hub_" << std::get<0>(h) << " => Packet: " << std::get<1>(h) << endl;
+    // }
+
+    // find maximum
+    auto hMax = std::max_element(w_hub_packets.begin(), w_hub_packets.end(),
+                                 [](const tuple<int, unsigned int> &h1, const tuple<int, unsigned int> &h2) {
+                                     int k1, k2;
+                                     unsigned int p1, p2;
+                                     std::tie(k1, p1) = h1;
+                                     std::tie(k2, p2) = h2;
+                                     return p1 < p2;
+                                 });
+
+    cout << "\t*GK* Max Hub_" << std::get<0>(*hMax) << " => Packet: " << std::get<1>(*hMax) << endl;
+
+    return *hMax;
 }
